@@ -1,24 +1,24 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Home() {
-  const router = useRouter();
+  const roteador = useRouter();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>InfnetFood</Text>
-      <Text style={styles.subtitle}>Bem-vindo ao InfnetFood!</Text>
+      <Text style={styles.titulo}>InfnetFood</Text>
+      <Text style={styles.subtitulo}>Bem-vindo ao InfnetFood!</Text>
       <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("/Categories")}
+        style={styles.botao}
+        onPress={() => roteador.push("/Categories")}
       >
-        <Text style={styles.buttonText}>Ver Categorias</Text>
+        <Text style={styles.textoBotao}>Ver Categorias</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.button, { marginTop: 12 }]}
-        onPress={() => router.push("/Login")}
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/Login")}
       >
-        <Text style={styles.buttonText}>Ir para Login</Text>
+        <Text style={styles.textoBotao}>Ir para Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -31,23 +31,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  title: {
+  titulo: {
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 8,
   },
-  subtitle: {
+  subtitulo: {
     fontSize: 18,
     color: "#666",
     marginBottom: 24,
   },
-  button: {
+  botao: {
     backgroundColor: "#003f7a",
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,
   },
-  buttonText: {
+  textoBotao: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",

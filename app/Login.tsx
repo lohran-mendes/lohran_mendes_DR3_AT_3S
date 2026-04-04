@@ -56,10 +56,10 @@ export default function Login() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.titulo}>Login</Text>
 
       <TextInput
-        style={[styles.input, erroEmail ? styles.inputErro : null]}
+        style={[styles.entrada, erroEmail ? styles.entradaErro : null]}
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
@@ -69,10 +69,10 @@ export default function Login() {
           if (erroEmail) setErroEmail("");
         }}
       />
-      {erroEmail ? <Text style={styles.erroText}>{erroEmail}</Text> : null}
+      {erroEmail ? <Text style={styles.textoErro}>{erroEmail}</Text> : null}
 
       <TextInput
-        style={[styles.input, erroSenha ? styles.inputErro : null]}
+        style={[styles.entrada, erroSenha ? styles.entradaErro : null]}
         placeholder="Senha"
         secureTextEntry
         value={senha}
@@ -81,14 +81,14 @@ export default function Login() {
           if (erroSenha) setErroSenha("");
         }}
       />
-      {erroSenha ? <Text style={styles.erroText}>{erroSenha}</Text> : null}
+      {erroSenha ? <Text style={styles.textoErro}>{erroSenha}</Text> : null}
 
-      <TouchableOpacity style={styles.button} onPress={validaAoEntrar}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={styles.botao} onPress={validaAoEntrar}>
+        <Text style={styles.textoBotao}>Entrar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.back()}>
-        <Text style={styles.linkText}>Voltar para Home</Text>
+        <Text style={styles.textoLink}>Voltar para Home</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 24,
   },
-  title: {
+  titulo: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 24,
   },
-  input: {
+  entrada: {
     width: "100%",
     borderWidth: 1,
     borderColor: "#ccc",
@@ -116,16 +116,16 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     fontSize: 16,
   },
-  inputErro: {
+  entradaErro: {
     borderColor: "#cc0000",
   },
-  erroText: {
+  textoErro: {
     color: "#cc0000",
     fontSize: 13,
     alignSelf: "flex-start",
     marginBottom: 12,
   },
-  button: {
+  botao: {
     backgroundColor: "#003f7a",
     paddingHorizontal: 24,
     paddingVertical: 12,
@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 16,
   },
-  buttonText: {
+  textoBotao: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
   },
-  linkText: {
+  textoLink: {
     color: "#003f7a",
     fontSize: 16,
   },

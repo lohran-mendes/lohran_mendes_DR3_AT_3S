@@ -1,27 +1,44 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { useRouter } from "expo-router";
 
-const categories = [
-  { id: "1", name: "Lanches" },
-  { id: "2", name: "Bebidas" },
-  { id: "3", name: "Sobremesas" },
-  { id: "4", name: "Pratos Principais" },
-  { id: "5", name: "Saladas" },
-  { id: "6", name: "Massas" },
+const categorias = [
+  { id: "1", nome: "Lanches" },
+  { id: "2", nome: "Bebidas" },
+  { id: "3", nome: "Sobremesas" },
+  { id: "4", nome: "Pratos Principais" },
+  { id: "5", nome: "Saladas" },
+  { id: "6", nome: "Massas" },
 ];
 
-export default function Categories() {
+export default function Categorias() {
+  const roteador = useRouter();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Categorias</Text>
+      <Text style={styles.titulo}>Categorias</Text>
       <FlatList
-        data={categories}
+        data={categorias}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardText}>{item.name}</Text>
-          </View>
+          <TouchableOpacity
+            style={styles.cartao}
+            onPress={() =>
+              roteador.push({
+                pathname: "/Products",
+                params: { categoriaId: item.id, categoriaNome: item.nome },
+              })
+            }
+          >
+            <Text style={styles.textoCartao}>{item.nome}</Text>
+          </TouchableOpacity>
         )}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={styles.lista}
       />
     </View>
   );
@@ -34,21 +51,21 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingHorizontal: 16,
   },
-  title: {
+  titulo: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
   },
-  list: {
+  lista: {
     gap: 12,
     paddingBottom: 24,
   },
-  card: {
+  cartao: {
     backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
   },
-  cardText: {
+  textoCartao: {
     fontSize: 18,
   },
 });

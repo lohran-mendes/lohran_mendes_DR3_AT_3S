@@ -26,6 +26,12 @@ export default function Home() {
       >
         <Text style={styles.textoBotao}>Meu Perfil</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/Orders")}
+      >
+        <Text style={styles.textoBotao}>Meus Pedidos</Text>
+      </TouchableOpacity>
     </View>
   );
 }

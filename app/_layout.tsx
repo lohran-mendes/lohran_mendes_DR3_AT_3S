@@ -14,6 +14,7 @@ export default function Layout() {
           options={{ title: "Detalhes do Produto" }}
         />
         <Stack.Screen name="Profile" options={{ title: "Perfil" }} />
+        <Stack.Screen name="Orders" options={{ title: "Pedidos" }} />
       </Stack>
     </ShoppingCart>
   );

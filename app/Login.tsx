@@ -47,7 +47,7 @@ export default function Login() {
 
     if (valido) {
       Alert.alert("Login realizado", `Bem-vindo, ${email}!`);
-      router.replace("/Home");
+      router.replace("/Categories");
     }
   }
 

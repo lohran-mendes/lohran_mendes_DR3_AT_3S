@@ -10,6 +10,12 @@ export default function Home() {
       <Text style={styles.subtitle}>Bem-vindo ao InfnetFood!</Text>
       <TouchableOpacity
         style={styles.button}
+        onPress={() => router.push("/Categories")}
+      >
+        <Text style={styles.buttonText}>Ver Categorias</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, { marginTop: 12 }]}
         onPress={() => router.push("/Login")}
       >
         <Text style={styles.buttonText}>Ir para Login</Text>

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "lohran_mendes_DR3_AT",
-    "slug": "lohran_mendes_DR3_AT",
+    "name": "InfnetFood",
+    "slug": "InfnetFood",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "lohranmendesdr3at",
+    "scheme": "infnetfood",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

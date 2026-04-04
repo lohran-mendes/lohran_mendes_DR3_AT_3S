@@ -20,6 +20,12 @@ export default function Home() {
       >
         <Text style={styles.textoBotao}>Ir para Login</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/Profile")}
+      >
+        <Text style={styles.textoBotao}>Meu Perfil</Text>
+      </TouchableOpacity>
     </View>
   );
 }

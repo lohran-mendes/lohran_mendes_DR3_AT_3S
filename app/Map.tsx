@@ -99,10 +99,10 @@ ${markers}
 </body></html>
 `;
 
-export default function Restaurants() {
+export default function Map() {
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Restaurantes</Text>
+      <Text style={styles.titulo}>Mapa</Text>
       {Platform.OS === "web" ? (
         <iframe
           srcDoc={html}

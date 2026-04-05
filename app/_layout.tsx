@@ -15,7 +15,11 @@ export default function Layout() {
         />
         <Stack.Screen name="Profile" options={{ title: "Perfil" }} />
         <Stack.Screen name="Orders" options={{ title: "Pedidos" }} />
-        <Stack.Screen name="Restaurants" options={{ title: "Restaurantes" }} />
+        <Stack.Screen name="Map" options={{ title: "Mapa" }} />
+        <Stack.Screen
+          name="RestaurantDetails"
+          options={{ title: "Restaurantes" }}
+        />
       </Stack>
     </ShoppingCart>
   );

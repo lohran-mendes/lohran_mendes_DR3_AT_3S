@@ -34,7 +34,13 @@ export default function Home() {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.botao, { marginTop: 12 }]}
-        onPress={() => roteador.push("/Restaurants")}
+        onPress={() => roteador.push("/Map")}
+      >
+        <Text style={styles.textoBotao}>Mapa</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/RestaurantDetails")}
       >
         <Text style={styles.textoBotao}>Restaurantes</Text>
       </TouchableOpacity>

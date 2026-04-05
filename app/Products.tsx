@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useTema } from "./context/Theme";
 
 type Produto = {
   id: string;
@@ -137,18 +138,21 @@ export default function Products() {
     categoriaNome: string;
   }>();
   const router = useRouter();
+  const { cores } = useTema();
 
   const produtos = produtosPorCategoria[categoriaId] || [];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>{categoriaNome}</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>
+        {categoriaNome}
+      </Text>
       <FlatList
         data={produtos}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.cartao}
+            style={[styles.cartao, { backgroundColor: cores.cartao }]}
             onPress={() =>
               router.push({
                 pathname: "/ProductDetails",
@@ -161,7 +165,9 @@ export default function Products() {
               })
             }
           >
-            <Text style={styles.nomeProduto}>{item.nome}</Text>
+            <Text style={[styles.nomeProduto, { color: cores.texto }]}>
+              {item.nome}
+            </Text>
             <Text style={styles.precoProduto}>R$ {item.preco.toFixed(2)}</Text>
           </TouchableOpacity>
         )}
@@ -174,7 +180,6 @@ export default function Products() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },
@@ -188,7 +193,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   cartao: {
-    backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
     flexDirection: "row",

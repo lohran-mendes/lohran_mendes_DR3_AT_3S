@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useCarrinho } from "./context/ShoppingCart";
+import { useTema } from "./context/Theme";
 
 export default function ProductDetails() {
   const { id, nome, preco, descricao } = useLocalSearchParams<{
@@ -12,6 +13,7 @@ export default function ProductDetails() {
   }>();
   const router = useRouter();
   const { adicionarItem } = useCarrinho();
+  const { cores } = useTema();
 
   const [quantidade, setQuantidade] = useState(1);
   const precoNumerico = parseFloat(preco);
@@ -31,28 +33,36 @@ export default function ProductDetails() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.nome}>{nome}</Text>
-      <Text style={styles.descricao}>{descricao}</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.nome, { color: cores.texto }]}>{nome}</Text>
+      <Text style={[styles.descricao, { color: cores.subtexto }]}>
+        {descricao}
+      </Text>
       <Text style={styles.preco}>R$ {precoNumerico.toFixed(2)}</Text>
 
       <View style={styles.linhaQuantidade}>
         <TouchableOpacity
-          style={styles.botaoQuantidade}
+          style={[styles.botaoQuantidade, { backgroundColor: cores.cartao }]}
           onPress={() => setQuantidade((q) => Math.max(1, q - 1))}
         >
-          <Text style={styles.textoBotaoQuantidade}>-</Text>
+          <Text style={[styles.textoBotaoQuantidade, { color: cores.texto }]}>
+            -
+          </Text>
         </TouchableOpacity>
-        <Text style={styles.textoQuantidade}>{quantidade}</Text>
+        <Text style={[styles.textoQuantidade, { color: cores.texto }]}>
+          {quantidade}
+        </Text>
         <TouchableOpacity
-          style={styles.botaoQuantidade}
+          style={[styles.botaoQuantidade, { backgroundColor: cores.cartao }]}
           onPress={() => setQuantidade((q) => q + 1)}
         >
-          <Text style={styles.textoBotaoQuantidade}>+</Text>
+          <Text style={[styles.textoBotaoQuantidade, { color: cores.texto }]}>
+            +
+          </Text>
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.total}>
+      <Text style={[styles.total, { color: cores.texto }]}>
         Total: R$ {(precoNumerico * quantidade).toFixed(2)}
       </Text>
 
@@ -69,7 +79,6 @@ export default function ProductDetails() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     padding: 24,
   },
   nome: {
@@ -79,7 +88,6 @@ const styles = StyleSheet.create({
   },
   descricao: {
     fontSize: 16,
-    color: "#666",
     marginBottom: 16,
   },
   preco: {
@@ -96,7 +104,6 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   botaoQuantidade: {
-    backgroundColor: "#f0f0f0",
     width: 44,
     height: 44,
     borderRadius: 8,

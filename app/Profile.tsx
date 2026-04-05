@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useTema } from "./context/Theme";
 
 const usuarioMock = {
   nome: "Lohran Mendes",
@@ -7,15 +8,21 @@ const usuarioMock = {
 };
 
 export default function Profile() {
+  const { cores } = useTema();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Perfil</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Perfil</Text>
       <Image source={usuarioMock.avatar} style={styles.avatar} />
-      <View style={styles.card}>
-        <Text style={styles.label}>Nome:</Text>
-        <Text style={styles.valor}>{usuarioMock.nome}</Text>
-        <Text style={styles.label}>E-mail:</Text>
-        <Text style={styles.valor}>{usuarioMock.email}</Text>
+      <View style={[styles.card, { borderColor: cores.borda }]}>
+        <Text style={[styles.label, { color: cores.subtexto }]}>Nome:</Text>
+        <Text style={[styles.valor, { color: cores.texto }]}>
+          {usuarioMock.nome}
+        </Text>
+        <Text style={[styles.label, { color: cores.subtexto }]}>E-mail:</Text>
+        <Text style={[styles.valor, { color: cores.texto }]}>
+          {usuarioMock.email}
+        </Text>
       </View>
     </View>
   );
@@ -26,7 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 40,
-    backgroundColor: "#fff",
   },
   titulo: {
     fontSize: 24,
@@ -43,12 +49,10 @@ const styles = StyleSheet.create({
     width: "80%",
     padding: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
   },
   label: {
     fontSize: 14,
-    color: "#666",
     marginTop: 12,
   },
   valor: {

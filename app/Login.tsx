@@ -9,9 +9,11 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { useTema } from "./context/Theme";
 
 export default function Login() {
   const router = useRouter();
+  const { cores } = useTema();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erroEmail, setErroEmail] = useState("");
@@ -53,14 +55,19 @@ export default function Login() {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: cores.fundo }]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={styles.titulo}>Login</Text>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Login</Text>
 
       <TextInput
-        style={[styles.entrada, erroEmail ? styles.entradaErro : null]}
+        style={[
+          styles.entrada,
+          { borderColor: cores.borda, color: cores.texto },
+          erroEmail ? styles.entradaErro : null,
+        ]}
         placeholder="Email"
+        placeholderTextColor={cores.subtexto}
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
@@ -72,8 +79,13 @@ export default function Login() {
       {erroEmail ? <Text style={styles.textoErro}>{erroEmail}</Text> : null}
 
       <TextInput
-        style={[styles.entrada, erroSenha ? styles.entradaErro : null]}
+        style={[
+          styles.entrada,
+          { borderColor: cores.borda, color: cores.texto },
+          erroSenha ? styles.entradaErro : null,
+        ]}
         placeholder="Senha"
+        placeholderTextColor={cores.subtexto}
         secureTextEntry
         value={senha}
         onChangeText={(texto) => {
@@ -99,7 +111,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
     padding: 24,
   },
   titulo: {
@@ -110,7 +121,6 @@ const styles = StyleSheet.create({
   entrada: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
     marginBottom: 4,

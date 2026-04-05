@@ -1,13 +1,17 @@
 import { useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useTema } from "./context/Theme";
 
 export default function Home() {
   const roteador = useRouter();
+  const { cores } = useTema();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>InfnetFood</Text>
-      <Text style={styles.subtitulo}>Bem-vindo ao InfnetFood!</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>InfnetFood</Text>
+      <Text style={[styles.subtitulo, { color: cores.subtexto }]}>
+        Bem-vindo ao InfnetFood!
+      </Text>
       <TouchableOpacity
         style={styles.botao}
         onPress={() => roteador.push("/Categories")}
@@ -44,6 +48,12 @@ export default function Home() {
       >
         <Text style={styles.textoBotao}>Restaurantes</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/Settings")}
+      >
+        <Text style={styles.textoBotao}>Configurações</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -53,7 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
   },
   titulo: {
     fontSize: 32,
@@ -62,7 +71,6 @@ const styles = StyleSheet.create({
   },
   subtitulo: {
     fontSize: 18,
-    color: "#666",
     marginBottom: 24,
   },
   botao: {

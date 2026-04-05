@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useTema } from "./context/Theme";
 
 const categorias = [
   { id: "1", nome: "Lanches" },
@@ -18,16 +19,17 @@ const categorias = [
 
 export default function Categorias() {
   const roteador = useRouter();
+  const { cores } = useTema();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Categorias</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Categorias</Text>
       <FlatList
         data={categorias}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.cartao}
+            style={[styles.cartao, { backgroundColor: cores.cartao }]}
             onPress={() =>
               roteador.push({
                 pathname: "/Products",
@@ -35,7 +37,9 @@ export default function Categorias() {
               })
             }
           >
-            <Text style={styles.textoCartao}>{item.nome}</Text>
+            <Text style={[styles.textoCartao, { color: cores.texto }]}>
+              {item.nome}
+            </Text>
           </TouchableOpacity>
         )}
         contentContainerStyle={styles.lista}
@@ -47,7 +51,6 @@ export default function Categorias() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },
@@ -61,7 +64,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   cartao: {
-    backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
   },

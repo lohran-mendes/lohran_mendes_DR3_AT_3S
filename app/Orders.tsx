@@ -1,10 +1,12 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useCarrinho } from "./context/ShoppingCart";
+import { useTema } from "./context/Theme";
 
 export default function Orders() {
   const { itens } = useCarrinho();
   const router = useRouter();
+  const { cores } = useTema();
 
   const total = itens.reduce(
     (soma, item) => soma + item.preco * item.quantidade,
@@ -12,22 +14,28 @@ export default function Orders() {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>
         Meus Pedidos{" - "}
         <Text style={styles.total}>Total: R$ {total.toFixed(2)}</Text>
       </Text>
       {itens.length === 0 ? (
-        <Text style={styles.vazio}>Nenhum pedido no momento.</Text>
+        <Text style={[styles.vazio, { color: cores.subtexto }]}>
+          Nenhum pedido no momento.
+        </Text>
       ) : (
         <>
           <FlatList
             data={itens}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View style={styles.cartao}>
-                <Text style={styles.nome}>{item.nome}</Text>
-                <Text style={styles.detalhes}>
+              <View
+                style={[styles.cartao, { backgroundColor: cores.cartao }]}
+              >
+                <Text style={[styles.nome, { color: cores.texto }]}>
+                  {item.nome}
+                </Text>
+                <Text style={[styles.detalhes, { color: cores.subtexto }]}>
                   Qtd: {item.quantidade} — R${" "}
                   {(item.preco * item.quantidade).toFixed(2)}
                 </Text>
@@ -50,7 +58,6 @@ export default function Orders() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },
@@ -61,7 +68,6 @@ const styles = StyleSheet.create({
   },
   vazio: {
     fontSize: 16,
-    color: "#888",
     marginTop: 24,
   },
   lista: {
@@ -69,7 +75,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   cartao: {
-    backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
   },
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
   },
   detalhes: {
     fontSize: 14,
-    color: "#555",
   },
   total: {
     fontSize: 18,

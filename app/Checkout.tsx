@@ -9,11 +9,13 @@ import {
   View,
 } from "react-native";
 import { useCarrinho } from "./context/ShoppingCart";
+import { useTema } from "./context/Theme";
 
 const metodosPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "Dinheiro"];
 
 export default function Checkout() {
   const { itens } = useCarrinho();
+  const { cores } = useTema();
   const [endereco, setEndereco] = useState("");
   const [pagamentoSelecionado, setPagamentoSelecionado] = useState("");
 
@@ -35,48 +37,69 @@ export default function Checkout() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Checkout</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Checkout</Text>
 
-      <Text style={styles.secao}>Resumo do Pedido</Text>
+      <Text style={[styles.secao, { color: cores.texto }]}>
+        Resumo do Pedido
+      </Text>
       {itens.length === 0 ? (
-        <Text style={styles.vazio}>Carrinho vazio.</Text>
+        <Text style={[styles.vazio, { color: cores.subtexto }]}>
+          Carrinho vazio.
+        </Text>
       ) : (
         <FlatList
           data={itens}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.cartao}>
-              <Text>{item.nome} x{item.quantidade}</Text>
-              <Text>R$ {(item.preco * item.quantidade).toFixed(2)}</Text>
+            <View
+              style={[styles.cartao, { backgroundColor: cores.cartao }]}
+            >
+              <Text style={{ color: cores.texto }}>
+                {item.nome} x{item.quantidade}
+              </Text>
+              <Text style={{ color: cores.texto }}>
+                R$ {(item.preco * item.quantidade).toFixed(2)}
+              </Text>
             </View>
           )}
           contentContainerStyle={styles.lista}
           ListFooterComponent={
-            <Text style={styles.total}>Total: R$ {total.toFixed(2)}</Text>
+            <Text style={[styles.total, { color: cores.texto }]}>
+              Total: R$ {total.toFixed(2)}
+            </Text>
           }
         />
       )}
 
-      <Text style={styles.secao}>Endereço de Entrega</Text>
+      <Text style={[styles.secao, { color: cores.texto }]}>
+        Endereço de Entrega
+      </Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          { borderColor: cores.borda, color: cores.texto },
+        ]}
         placeholder="Digite seu endereço"
+        placeholderTextColor={cores.subtexto}
         value={endereco}
         onChangeText={setEndereco}
       />
 
-      <Text style={styles.secao}>Método de Pagamento</Text>
+      <Text style={[styles.secao, { color: cores.texto }]}>
+        Método de Pagamento
+      </Text>
       {metodosPagamento.map((metodo) => (
         <TouchableOpacity
           key={metodo}
           style={[
             styles.opcao,
+            { backgroundColor: cores.cartao },
             pagamentoSelecionado === metodo && styles.opcaoSelecionada,
           ]}
           onPress={() => setPagamentoSelecionado(metodo)}
         >
-          <Text>{metodo}</Text>
+          <Text style={{ color: cores.texto }}>{metodo}</Text>
         </TouchableOpacity>
       ))}
 
@@ -90,7 +113,6 @@ export default function Checkout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },
@@ -107,7 +129,6 @@ const styles = StyleSheet.create({
   },
   vazio: {
     fontSize: 16,
-    color: "#888",
   },
   lista: {
     gap: 8,
@@ -115,7 +136,6 @@ const styles = StyleSheet.create({
   cartao: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#f0f0f0",
     padding: 12,
     borderRadius: 8,
   },
@@ -127,7 +147,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -135,7 +154,6 @@ const styles = StyleSheet.create({
   opcao: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: "#f0f0f0",
     marginBottom: 8,
   },
   opcaoSelecionada: {

@@ -1,5 +1,6 @@
 import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
+import { useTema } from "./context/Theme";
 
 const restaurantes = [
   {
@@ -100,9 +101,11 @@ ${markers}
 `;
 
 export default function Map() {
+  const { cores } = useTema();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Mapa</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Mapa</Text>
       {Platform.OS === "web" ? (
         <iframe
           srcDoc={html}
@@ -120,7 +123,6 @@ export default function Map() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },

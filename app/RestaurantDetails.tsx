@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useTema } from "./context/Theme";
 
 const restaurantes = [
   { id: "1", nome: "Confeitaria Colombo", endereco: "R. Gonçalves Dias, 32", cardapio: "Pastel de Belém - R$ 12,00" },
@@ -20,18 +21,28 @@ const restaurantes = [
 ];
 
 export default function RestaurantDetails() {
+  const { cores } = useTema();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Restaurantes</Text>
+    <View style={[styles.container, { backgroundColor: cores.fundo }]}>
+      <Text style={[styles.titulo, { color: cores.texto }]}>Restaurantes</Text>
       <FlatList
         data={restaurantes}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.lista}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.cartao}>
-            <Text style={styles.textoCartao}>{item.nome}</Text>
-            <Text style={styles.subtexto}>{item.endereco}</Text>
-            <Text style={styles.subtexto}>Cardápio: {item.cardapio}</Text>
+          <TouchableOpacity
+            style={[styles.cartao, { backgroundColor: cores.cartao }]}
+          >
+            <Text style={[styles.textoCartao, { color: cores.texto }]}>
+              {item.nome}
+            </Text>
+            <Text style={[styles.subtexto, { color: cores.subtexto }]}>
+              {item.endereco}
+            </Text>
+            <Text style={[styles.subtexto, { color: cores.subtexto }]}>
+              Cardápio: {item.cardapio}
+            </Text>
           </TouchableOpacity>
         )}
       />
@@ -42,7 +53,6 @@ export default function RestaurantDetails() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 24,
     paddingHorizontal: 16,
   },
@@ -56,7 +66,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   cartao: {
-    backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
   },
@@ -65,7 +74,6 @@ const styles = StyleSheet.create({
   },
   subtexto: {
     fontSize: 14,
-    color: "#666",
     marginTop: 4,
   },
 });

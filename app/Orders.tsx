@@ -1,8 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
 import { useCarrinho } from "./context/ShoppingCart";
 
 export default function Orders() {
   const { itens } = useCarrinho();
+  const router = useRouter();
 
   const total = itens.reduce(
     (soma, item) => soma + item.preco * item.quantidade,
@@ -33,6 +35,12 @@ export default function Orders() {
             )}
             contentContainerStyle={styles.lista}
           />
+          <TouchableOpacity
+            style={styles.botaoCheckout}
+            onPress={() => router.push("/Checkout")}
+          >
+            <Text style={styles.botaoTexto}>Ir para Checkout</Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
@@ -79,5 +87,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "right",
     paddingVertical: 16,
+  },
+  botaoCheckout: {
+    backgroundColor: "#003f7a",
+    padding: 14,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 16,
+    marginBottom: 24,
+  },
+  botaoTexto: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

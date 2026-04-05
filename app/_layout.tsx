@@ -20,6 +20,7 @@ export default function Layout() {
           name="RestaurantDetails"
           options={{ title: "Restaurantes" }}
         />
+        <Stack.Screen name="Checkout" options={{ title: "Checkout" }} />
       </Stack>
     </ShoppingCart>
   );

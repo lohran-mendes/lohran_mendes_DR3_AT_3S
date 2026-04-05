@@ -32,6 +32,12 @@ export default function Home() {
       >
         <Text style={styles.textoBotao}>Meus Pedidos</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.botao, { marginTop: 12 }]}
+        onPress={() => roteador.push("/Restaurants")}
+      >
+        <Text style={styles.textoBotao}>Restaurantes</Text>
+      </TouchableOpacity>
     </View>
   );
 }

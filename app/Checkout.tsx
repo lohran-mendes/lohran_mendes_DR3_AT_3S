@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   FlatList,
   StyleSheet,
@@ -16,8 +17,33 @@ const metodosPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "D
 export default function Checkout() {
   const { itens } = useCarrinho();
   const { cores } = useTema();
-  const [endereco, setEndereco] = useState("");
+  const [cep, setCep] = useState("");
+  const [rua, setRua] = useState("");
+  const [buscandoCep, setBuscandoCep] = useState(false);
   const [pagamentoSelecionado, setPagamentoSelecionado] = useState("");
+
+  async function buscarCep(valor: string) {
+    const cepLimpo = valor.replace(/\D/g, "");
+    setCep(valor);
+    setRua("");
+
+    if (cepLimpo.length !== 8) return;
+
+    setBuscandoCep(true);
+    try {
+      const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const dados = await resposta.json();
+      if (dados.erro) {
+        Alert.alert("Erro", "CEP não encontrado.");
+      } else {
+        setRua(`${dados.logradouro}, ${dados.bairro} - ${dados.localidade}/${dados.uf}`);
+      }
+    } catch {
+      Alert.alert("Erro", "Não foi possível buscar o CEP.");
+    } finally {
+      setBuscandoCep(false);
+    }
+  }
 
   const total = itens.reduce(
     (soma, item) => soma + item.preco * item.quantidade,
@@ -25,8 +51,8 @@ export default function Checkout() {
   );
 
   const finalizar = () => {
-    if (!endereco.trim()) {
-      Alert.alert("Erro", "Preencha o endereço de entrega.");
+    if (!rua) {
+      Alert.alert("Erro", "Informe um CEP válido para entrega.");
       return;
     }
     if (!pagamentoSelecionado) {
@@ -73,18 +99,24 @@ export default function Checkout() {
       )}
 
       <Text style={[styles.secao, { color: cores.texto }]}>
-        Endereço de Entrega
+        CEP de Entrega
       </Text>
       <TextInput
         style={[
           styles.input,
           { borderColor: cores.borda, color: cores.texto },
         ]}
-        placeholder="Digite seu endereço"
+        placeholder="Digite o CEP (ex: 01001000)"
         placeholderTextColor={cores.subtexto}
-        value={endereco}
-        onChangeText={setEndereco}
+        value={cep}
+        onChangeText={buscarCep}
+        keyboardType="numeric"
+        maxLength={9}
       />
+      {buscandoCep && <ActivityIndicator style={{ marginTop: 8 }} />}
+      {rua !== "" && (
+        <Text style={[styles.ruaTexto, { color: cores.texto }]}>{rua}</Text>
+      )}
 
       <Text style={[styles.secao, { color: cores.texto }]}>
         Método de Pagamento
@@ -150,6 +182,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
+  },
+  ruaTexto: {
+    fontSize: 14,
+    marginTop: 8,
+    fontStyle: "italic",
   },
   opcao: {
     padding: 12,
